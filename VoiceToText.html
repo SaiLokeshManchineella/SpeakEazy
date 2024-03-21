@@ -31,12 +31,14 @@
   </div>
   <h1>Live Audio to Text Conversion</h1>
   <button id="startBtn">Start Recording</button>
+  <button id="saveBtn">Save Output</button>
   <p id="output"></p>
   
   <script>
   // Check if browser supports Web Speech API
   if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
     const startBtn = document.getElementById('startBtn');
+    const saveBtn = document.getElementById('saveBtn');
     const output = document.getElementById('output');
     let recognition;
   
@@ -86,6 +88,24 @@
     // Web Speech API not supported
     output.textContent = 'Speech recognition not supported in this browser.';
   }
+  const saveBtn = document.getElementById('saveBtn');
+  
+ saveBtn.addEventListener('click', function() {
+    const textToSave = output.textContent;
+    if (textToSave) {
+      const blob = new Blob([textToSave], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'output.txt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } else {
+      alert('No text to save.');
+    }
+  });
   </script>
   </body>
   </html>
