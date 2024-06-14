@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="home style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SpeakEasy</title>
+
+</head>
+<body>
+  <div class="menu-bar">
+    <h1 class="logo">Speak<span>Easy</span></h1>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Features<i class="fas fa-caret-down"></i></a>
+          <div class="dropdown-menu">
+              <ul>
+                <li><a href="#">Voice to Text</a></li>
+                <li><a href="#">Text to Voice</a></li>
+                <li><a href="#">Gesture to Voice</a></li>
+                <li><a href="#">Voice to Gesture</a></li>
+                <li><a href="#">Gesture to Text</a></li>
+                <li><a href="#">Text to Gesture</a></li>
+              </ul>
+            </div>
+      </li>
+      <li><a href="#">Sign In</a>
+      </li>
+      <li><a href="#">Sign Up</a></li>
+    </ul>
+  </div>
+  <h1>Gesture to Voice</h1>
+    <div class="video_upload">
+    <form id="uploadForm">
+        <label for="videoUpload">Upload Video:</label>
+        <input type="file" id="videoUpload" accept="video/*" required>
+        <button type="submit">Convert</button>
+    </form>
+    <br>
+    <a id="downloadLink" style="display: none;" download="converted_voice.mp3">
+        <button id="downloadButton" style="display: none;">Download Voice</button>
+    </a>
+</div>
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            var videoFile = document.getElementById('videoUpload').files[0];
+            if (!videoFile) {
+                alert("Please select a video file.");
+                return;
+            }
+
+            var formData = new FormData();
+            formData.append('video', videoFile);
+
+            fetch('/convert', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error converting video.');
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                var downloadLink = document.getElementById('downloadLink');
+                var downloadButton = document.getElementById('downloadButton');
+                downloadLink.href = URL.createObjectURL(blob);
+                downloadButton.style.display = 'block';
+                downloadLink.style.display = 'block';
+            })
+            .catch(error => {
+                alert(error.message);
+            });
+        });
+    </script>
+</body>
+</html>
+
+<style>
+.video_upload { 
+	background-color: #595a57ed;
+	position: absolute;
+	top:50%;
+	left:50%;
+	transform: translate(-50%, -46%);
+	padding-top: 10px;
+    padding-bottom: 60px;
+    padding-left: 60px;
+    padding-right: 60px;
+    border-radius: 15px;
+    border-color:#0a0a0a;
+    border-width: 5px;
+    color:#0a0a0a;
+    box-shadow:-10px -10px 9px #26431f;
+}
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            color: #51700f;
+            margin-top: 30px;
+        }
+        form {
+            max-width: 500px;
+            margin: 20px auto;
+            position: relative;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding-top: 10px;
+    padding-bottom: 60px;
+    padding-left: 60px;
+    padding-right: 60px;
+    border-radius: 15px;
+    border-color:#0a0a0a;
+    border-width: 5px;
+    color:#0a0a0a;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #03517b;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #51700f;
+        }
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+        }
+        #downloadButton {
+            background-color: #28a745;
+        }
+        #downloadButton:hover {
+            background-color: #218838;
+        }
+    </style>
