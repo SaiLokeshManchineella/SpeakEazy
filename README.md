@@ -1,1 +1,1 @@
-# SpeakEazy
+A sign language translator is a device or software application designed to interpret spoken or written language into sign language, allowing communication between individuals who are deaf or hard of hearing and those who can hear. It typically involves a camera or microphone to capture input, which is then processed and displayed as sign language gestures or text on a screen. Some advanced versions may also incorporate artificial intelligence for improved accuracy and efficiency in translation.# SpeakEazy

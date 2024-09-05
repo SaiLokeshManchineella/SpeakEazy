@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Audio to Text</title>
+<title>SpeakEasy</title>
+<link rel="stylesheet" href="home style.css">
+
+</head>
+<body>
+  <div class="menu-bar">
+    <h1 class="logo">Speak<span>Easy</span></h1>
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="#">Features<i class="fas fa-caret-down"></i></a>
+          <div class="dropdown-menu">
+              <ul>
+                <li><a href="VoiceToText.html">Voice to Text</a></li>
+                <li><a href="Text to voice.html">Text to Voice</a></li>
+                <li><a href="GestureToVoice.html">Gesture to Voice</a></li>
+                <li><a href="#">Voice to Gesture</a></li>
+                <li><a href="Gesture to Text.html">Gesture to Text</a></li>
+                <li><a href="#">Text to Gesture</a></li>
+              </ul>
+            </div>
+      </li>
+    </li>
+    <li><a href="login.html">Sign In</a>
+    </li>
+    <li><a href="logon.html">Register</a></li>
+  </ul>
+    </ul>
+  </div>
+  <h1>Live Audio to Text Conversion</h1>
+  <button id="startBtn">Start Recording</button>
+  <button id="saveBtn">Save Output</button>
+  <p id="output"></p>
+  
+  <script>
+  // Check if browser supports Web Speech API
+  if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+    const startBtn = document.getElementById('startBtn');
+    const saveBtn = document.getElementById('saveBtn');
+    const output = document.getElementById('output');
+    let recognition;
+  
+    // Initialize SpeechRecognition object
+    if ('SpeechRecognition' in window) {
+      recognition = new SpeechRecognition();
+    } else {
+      recognition = new webkitSpeechRecognition();
+    }
+  
+    // Set recognition parameters
+    recognition.lang = 'en-US'; // Set language to English
+    recognition.continuous = true; // Enable continuous recognition
+  
+    // Event handler for when speech recognition starts
+    recognition.onstart = function() {
+      output.textContent = 'Listening...';
+    };
+  
+    // Event handler for when speech is recognized
+    recognition.onresult = function(event) {
+      const transcript = event.results[event.results.length - 1][0].transcript;
+      output.textContent = transcript;
+    };
+  
+    // Event handler for errors
+    recognition.onerror = function(event) {
+      console.error('Speech recognition error:', event.error);
+    };
+  
+    // Event handler for when recognition ends
+    recognition.onend = function() {
+      output.textContent = 'Recognition ended. Click "Start Recording" to start again.';
+    };
+  
+    // Event listener for the "Start Recording" button
+    startBtn.addEventListener('click', function() {
+      if (recognition && recognition.state === 'listening') {
+        recognition.stop();
+        startBtn.textContent = 'Start Recording';
+      } else {
+        recognition.start();
+        startBtn.textContent = 'Stop Recording';
+      }
+    });
+  } else {
+    // Web Speech API not supported
+    output.textContent = 'Speech recognition not supported in this browser.';
+  }
+  const saveBtn = document.getElementById('saveBtn');
+  
+ saveBtn.addEventListener('click', function() {
+    const textToSave = output.textContent;
+    if (textToSave) {
+      const blob = new Blob([textToSave], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'output.txt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } else {
+      alert('No text to save.');
+    }
+  });
+  </script>
+  </body>
+  </html>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+    form {
+            max-width: 500px;
+            position: relative;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding-top: 10px;
+    padding-left: 60px;
+    padding-right: 20px;
+    border-radius: 15px;
+    border-color:#0a0a0a;
+    border-width: 5px;
+    color:#0a0a0a;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+    h1 {
+            text-align: center;
+            color: #ffffff;
+            margin-top: 20px;
+    }
+    #container {
+        max-width: 600px;
+        margin: auto;
+    }
+    #output {
+        margin: 20px;
+        border: 1px solid #000000;
+        padding: 10px;
+        min-height: 100px;
+        background-color: #fff;
+    }
+    #status {
+        margin-top: 10px;
+        font-style: italic;
+    }
+    .audio_upload { 
+	background-color: #51700f;
+	position: absolute;
+	top:50%;
+	left:50%;
+	transform: translate(-50%, -46%);
+	padding-top: 10px;
+    margin-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 60px;
+    padding-right: 60px;
+    border-radius: 15px;
+    border-color:#0a0a0a;
+    border-width: 5px;
+    color:#0a0a0a;
+    box-shadow:-10px -10px 9px #26431f;
+}
+button{
+  margin: 10px;
+  margin-left: 40PX;
+
+}
+</style>
