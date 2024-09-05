@@ -1,0 +1,94 @@
+model= Sequential([
+    Bidirectional(LSTM(128, return_sequences=True, input_shape=(40, 1662))),
+    Bidirectional(LSTM(64)),
+    Dropout(0.5),
+    Dense(32, activation='relu'),
+    Dense(64, activation='relu'),
+    Dense(35, activation='softmax')
+]) :41
+
+model = Sequential([
+    Bidirectional(LSTM(64, return_sequences=True, input_shape=(40, 1662))),
+    Dropout(0.3),  # Adjust dropout rate
+    Bidirectional(LSTM(32)),  # Reduce LSTM units
+    Dense(64, activation='relu'),
+    Dropout(0.3),  # Add another dropout layer
+    Dense(35, activation='softmax')
+]) :42,65a
+
+model = Sequential([
+    Bidirectional(LSTM(64, return_sequences=True, input_shape=(40, 1662))),
+    BatchNormalization(),
+    Dropout(0.3),  # Adjust dropout rate
+    Bidirectional(LSTM(32)), # Reduce LSTM units
+    BatchNormalization(),
+    Dense(64, activation='relu'),
+    BatchNormalization(),
+    Dropout(0.3),  # Add another dropout layer
+    Dense(35, activation='softmax')
+])  :47
+
+model = Sequential([
+    Bidirectional(LSTM(64, return_sequences=True, input_shape=(40, 1662))),
+    Dropout(0.3),  # Adjust dropout rate
+    Bidirectional(LSTM(32)),  # Reduce LSTM units
+    Dense(64, activation='relu'),
+    Dropout(0.3),  # Add another dropout layer
+    Dense(52, activation='relu'),
+    Dropout(0.3),# Add another dropout layer
+    Dense(35, activation='softmax')
+])  :72a
+
+model = Sequential([
+    Bidirectional(LSTM(64, return_sequences=True, input_shape=(40, 1662))),
+    Dropout(0.3),  # Adjust dropout rate
+    Bidirectional(LSTM(32)),  # Reduce LSTM units
+    Dense(64, activation='relu'),
+    Dropout(0.3),  # Add another dropout layer
+    Dense(52, activation='relu'),
+    Dropout(0.3),# Add another dropout layer
+    Dense(42, activation='relu'),
+    Dropout(0.3),
+    Dense(35, activation='softmax')
+])  :73a,69(2000)a
+  
+model = Sequential([
+    Bidirectional(LSTM(64, return_sequences=True, input_shape=(40, 1662))),
+    Dropout(0.3),  # Adjust dropout rate
+    Bidirectional(LSTM(32)), # Reduce LSTM units\
+    Dropout(0.3),
+    Dense(64, activation='relu'),
+    Dropout(0.3),  # Add another dropout layer
+    Dense(52, activation='relu'),
+    Dropout(0.3),# Add another dropout layer
+    Dense(42, activation='relu'),
+    Dropout(0.3),
+    Dense(35, activation='softmax')
+]) :66a
+
+model = Sequential([
+    Bidirectional(LSTM(64, return_sequences=True, input_shape=(40, 1662))),
+    Dropout(0.3),  # Adjust dropout rate
+    Bidirectional(LSTM(32)), # Reduce LSTM units\
+    Dropout(0.3),
+    Dense(64, activation='relu'),
+    Dropout(0.3),  # Add another dropout layer
+    Dense(32, activation='relu'),
+    Dropout(0.3),# Add another dropout layer
+    Dense(35, activation='softmax')
+])  :71a
+
+model = Sequential([
+    Bidirectional(LSTM(128, return_sequences=True, input_shape=(40, 1662))),
+    Dropout(0.3),  # Adjust dropout rate
+    Bidirectional(LSTM(32)), # Reduce LSTM units\
+    Dropout(0.3),
+    Dense(64, activation='relu'),
+    Dropout(0.3),  # Add another dropout layer
+    Dense(32, activation='relu'),
+    Dropout(0.3),# Add another dropout layer
+    Dense(35, activation='softmax')
+])  :68
+
+
+
